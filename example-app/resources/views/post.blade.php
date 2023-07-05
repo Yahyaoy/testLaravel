@@ -12,10 +12,12 @@
 <body>
 <article>
     <h1>
-        <a href="/post">My First Post</a>
+        <a><?= $post->title ?></a>
     </h1>
     <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi architecto consectetur dolore doloremque eius eligendi, eos ex in mollitia non odit, officiis quisquam unde vel voluptatibus! Cupiditate nemo recusandae voluptates.
+        <?= $post->body ?>
     </p>
 </article>
+
+<a href="/">Go Back</a>
 </body>

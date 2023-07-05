@@ -11,8 +11,9 @@
 </head>
 <body>
 <?php foreach ($posts as $post) :?>
+<h1><a href="posts/<?=$post->slug?>"><?= $post->title; ?></a></h1>
     <article>
-        <?= $post;?>
+        <?= $post->body; ?>
     </article>
 <?php endforeach; ?>
 {{--<article>--}}
