@@ -121,6 +121,7 @@
       <excludeFolder url="file://$MODULE_DIR$/example-app/vendor/dflydev/dot-access-data" />
       <excludeFolder url="file://$MODULE_DIR$/example-app/vendor/theseer/tokenizer" />
       <excludeFolder url="file://$MODULE_DIR$/example-app/vendor/spatie/yaml-front-matter" />
+      <excludeFolder url="file://$MODULE_DIR$/example-app/vendor/itsgoingd/clockwork" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
