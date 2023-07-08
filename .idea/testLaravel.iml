@@ -122,6 +122,9 @@
       <excludeFolder url="file://$MODULE_DIR$/example-app/vendor/theseer/tokenizer" />
       <excludeFolder url="file://$MODULE_DIR$/example-app/vendor/spatie/yaml-front-matter" />
       <excludeFolder url="file://$MODULE_DIR$/example-app/vendor/itsgoingd/clockwork" />
+      <excludeFolder url="file://$MODULE_DIR$/example-app/storage/app" />
+      <excludeFolder url="file://$MODULE_DIR$/example-app/storage/clockwork" />
+      <excludeFolder url="file://$MODULE_DIR$/example-app/storage/framework" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
