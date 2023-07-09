@@ -18,7 +18,8 @@ use App\Models\User;
 Route::get('/', function () {
 //    return Post::find('my-first-post');
     return view('posts', [
-        'posts' => Post::all() // solution of N + 1 problem clockwork -  extension بدل ما نعمل جمل سيليكت كثير بنعمل وحدة وممكن تتحقق من خلال ال
+        'posts' => Post::all(), // solution of N + 1 problem clockwork -  extension بدل ما نعمل جمل سيليكت كثير بنعمل وحدة وممكن تتحقق من خلال ال
+        'categories' => Category::all()
     ]);
 });
 
@@ -30,13 +31,16 @@ Route::get('posts/{post:slug}', function (Post $post) {
 
 Route::get('categories/{category:slug}', function (Category $category){
    return view('posts', [
-      'posts' => $category->posts
+      'posts' => $category->posts,
+      'currentCategory' => $category,
+      'categories' => Category::all()
 //          ->load('author','category') to avoid N+1 Problem same "with"
    ]);
 });
 
 Route::get('authors/{author:username}', function (User $author){
     return view('posts', [
-        'posts' => $author->posts
+        'posts' => $author->posts,
+        'categories' => Category::all()
     ]);
 });
