@@ -21,7 +21,7 @@ Route::get('/', function () {
         'posts' => Post::all(), // solution of N + 1 problem clockwork -  extension بدل ما نعمل جمل سيليكت كثير بنعمل وحدة وممكن تتحقق من خلال ال
         'categories' => Category::all()
     ]);
-});
+})->name('home');
 
 Route::get('posts/{post:slug}', function (Post $post) {
     return view('post',[
