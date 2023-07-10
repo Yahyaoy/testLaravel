@@ -24,8 +24,10 @@ class PostFactory extends Factory
             'category_id' => Category::factory()->create(),
             'title' => fake()->sentence,
             'slug' => fake()->slug,
-            'excerpt' => fake()->sentence,
-            'body' => fake()->paragraph
+            'excerpt' => '<p>'. implode('</p><p>', fake()->paragraphs(2)) . '</p>',
+//             another solution from laracast website
+//            'excerpt' => collect($this->faker->paragraphs(2))->map(fn($item) => "<p>{$item}</p>")->implode(''),
+            'body' => '<p>'. implode('</p><p>', fake()->paragraphs(6)) . '</p>',
         ];
     }
 }
