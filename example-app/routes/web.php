@@ -16,9 +16,15 @@ use App\Models\User;
 */
 
 Route::get('/', function () {
-//    return Post::find('my-first-post');
+    $posts = Post::latest();
+    if (request('search')){
+        $posts
+            ->where('title', 'like', '%' .request('search') . '%')
+            ->orWhere('body', 'like', '%' .request('search') . '%');
+    }
+
     return view('posts', [
-        'posts' => Post::all(), // solution of N + 1 problem clockwork -  extension بدل ما نعمل جمل سيليكت كثير بنعمل وحدة وممكن تتحقق من خلال ال
+        'posts' => $posts->get(), // solution of N + 1 problem clockwork -  extension بدل ما نعمل جمل سيليكت كثير بنعمل وحدة وممكن تتحقق من خلال ال
         'categories' => Category::all()
     ]);
 })->name('home');
