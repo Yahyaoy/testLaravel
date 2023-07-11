@@ -17,10 +17,16 @@ protected $with = ['category', 'author']; // to avoid N+1 problem بدل ما ف
 public function scopeFilter($query, array $filters)
 { // p
     $query->when($filters['search'] ?? false, fn ($query, $search) =>
-        $query
-            ->where('title', 'like', '%' . $search . '%')
-            ->orWhere('body', 'like', '%' . $search . '%')
+    $query->where(fn($query) =>
+        $query->where('title', 'like', '%' . $search . '%')
+              ->orWhere('body', 'like', '%' . $search . '%')
+    )
     );
+    //المشكلة هان في الكويري بس بدنا نسكر الكويري الفرق بس باقواس ارجع لفيديو 43 عشان تعرف بالزبط كيف
+//    $query
+//    ->where('title', 'like', '%' . $search . '%')
+//    ->orWhere('body', 'like', '%' . $search . '%')
+//    );
 
     $query->when($filters['category'] ?? false, fn($query, $category) =>
     //الطريقة الثانية المختصرة هان بدو يتاكد اذا في علاقة تحت معرفها اسمها category
