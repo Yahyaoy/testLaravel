@@ -40,6 +40,11 @@ public function scopeFilter($query, array $filters)
 //        Two way output in clockwork is
 //        SELECT * FROM `posts` WHERE EXISTS (SELECT * FROM `categories` WHERE `posts`.`category_id` = `categories`.`id` and `slug` = 'rem-ut-temporibus-tempora-dolores') ORDER BY `created_at` DESC
     );
+        $query->when($filters['author'] ?? false, fn($query, $author) =>
+            $query->whereHas('author', fn($query)=>
+                 $query->where('username', $author)
+            )
+      );
 }
 public function category(){
     return $this->belongsTo(Category::class);
