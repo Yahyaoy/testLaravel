@@ -22,11 +22,24 @@ public function scopeFilter($query, array $filters)
             ->orWhere('body', 'like', '%' . $search . '%')
     );
 
-//    if ($filters['search'] ?? false){
+    $query->when($filters['category'] ?? false, fn($query, $category) =>
+    //الطريقة الثانية المختصرة هان بدو يتاكد اذا في علاقة تحت معرفها اسمها category
+//بعدها بدنا نعمل تحقق
+        $query->whereHas('category', fn($query)=>
+            $query->where('slug', $category)
+        )
+
+// هاد طريقة اولى طويلة نفس مفهوم الداتا بيز بدنا نعمل نستد كويري ولازم نحط كلمة كولمن عشان ما يطلع الاي دي نص
 //        $query
-//            ->where('title', 'like', '%' .request('search') . '%')
-//            ->orWhere('body', 'like', '%' .request('search') . '%');
-//    }
+//            ->whereExists(fn($query) =>
+//                $query->from('categories')
+//                      ->whereColumn('categories.id', 'posts.category_id')
+//                      ->where('categories.slug', $category)
+//            )
+
+//        Two way output in clockwork is
+//        SELECT * FROM `posts` WHERE EXISTS (SELECT * FROM `categories` WHERE `posts`.`category_id` = `categories`.`id` and `slug` = 'rem-ut-temporibus-tempora-dolores') ORDER BY `created_at` DESC
+    );
 }
 public function category(){
     return $this->belongsTo(Category::class);
