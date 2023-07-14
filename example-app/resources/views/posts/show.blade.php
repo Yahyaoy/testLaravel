@@ -43,17 +43,18 @@
                     </div>
 
                     <h1 class="font-bold text-3xl lg:text-4xl mb-10">
-                        This is a big title and it will look great on two or even three
-                        lines. Wooohoo!
+                        {{ $post->title }}
                     </h1>
 
                     <div class="space-y-4 lg:text-lg leading-loose">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                            laboris nisi ut aliquip ex ea commodo consequat.</p>
-
+                        {!! $post->body !!}
                     </div>
                 </div>
+            <section class="col-span-8 col-start-5 mt-10 space-y-6 ">
+                <x-post-comment/>
+                <x-post-comment/>
+                <x-post-comment/>
+            </section>
             </article>
         </main>
     </section>
