@@ -9,7 +9,7 @@ class Post extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+//    protected $guarded = [];
 //    protected $fillable =['title','excerpt','body','id'];
 
 protected $with = ['category', 'author']; // to avoid N+1 problem بدل ما في الراوت تعملها بنعملها هان
