@@ -8,6 +8,7 @@ use App\Http\Controllers\SessionController;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\User;
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,7 +19,8 @@ use App\Models\User;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('ping', function (){
+Route::post('newsletter', function (Request $request){
+    $request->validate(['email' => 'required|email']);
     $mailchimp = new \MailchimpMarketing\ApiClient();
 
     $mailchimp->setConfig([
@@ -26,14 +28,18 @@ Route::get('ping', function (){
         'server' => 'us11',
     ]);
 
-//    $response = $mailchimp->lists->getList('af6fbc9e68');
-//    $response = $mailchimp->lists->getListMembersInfo("af6fbc9e68");
-      $response = $mailchimp->lists->addListMember('af6fbc9e68', [
-         'email_address' => 'yahsheek02@gmail.com',
-         'status' => 'subscribed'
-      ]);
+    try {
+        $response = $mailchimp->lists->addListMember('af6fbc9e68', [
+            'email_address' => request('email'),
+            'status' => 'subscribed'
+        ]);
+    } catch (\Exception $e) {
+        throw \Illuminate\Validation\ValidationException::withMessages([
+            'email' => 'This email could not be added to our newsletter list.'
+        ]);
+    }
+    return redirect('/')->with('success', 'You are now signed up for our newsletter!');
 
-    dd($response);
 });
 
 Route::get('/', [PostController::class, 'index'])->name('home');
