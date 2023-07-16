@@ -18,6 +18,23 @@ use App\Models\User;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('ping', function (){
+    $mailchimp = new \MailchimpMarketing\ApiClient();
+
+    $mailchimp->setConfig([
+        'apiKey' => config('services.mailchimp.key'),
+        'server' => 'us11',
+    ]);
+
+//    $response = $mailchimp->lists->getList('af6fbc9e68');
+//    $response = $mailchimp->lists->getListMembersInfo("af6fbc9e68");
+      $response = $mailchimp->lists->addListMember('af6fbc9e68', [
+         'email_address' => 'yahsheek02@gmail.com',
+         'status' => 'subscribed'
+      ]);
+
+    dd($response);
+});
 
 Route::get('/', [PostController::class, 'index'])->name('home');
 
