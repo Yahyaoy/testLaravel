@@ -21,7 +21,7 @@ use Illuminate\Http\Request;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::post('newsletter',[NewsletterController::class]);
+Route::post('newsletter',[NewsletterController::class, '__invoke']);
 
 Route::get('/', [PostController::class, 'index'])->name('home');
 
