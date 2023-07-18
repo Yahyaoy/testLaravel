@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -11,11 +12,6 @@ class PostController extends Controller
     //
     public function index()
     {
-//        return Post::latest()->filter(
-//          request(['search', 'category', 'author'])
-//        )->paginate(6)
-//        ;
-
         return view('posts.index', [
             'posts' => Post::latest()->filter(
                 request(['search', 'category', 'author'])
@@ -26,7 +22,7 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
-        return view('posts.show',[
+        return view('posts.show', [
             'post' => $post
         ]);
     }
@@ -36,21 +32,23 @@ class PostController extends Controller
         return view('posts.create');
     }
 
-    public function store(){
-       $attributes = \request()->validate([
-           'body' => 'required',
-           'excerpt' => 'required',
-           'slug' => ['required', Rule::unique('posts','slug')],
-           'title' => 'required',
-           'category_id' => ['required', Rule::exists('categories', 'id')]
-       ]);
+    public function store()
+    {
+        $attributes = \request()->validate([
+            'body' => 'required',
+            'excerpt' => 'required',
+            'thumbnail' => 'required|image',
+            'slug' => ['required', Rule::unique('posts', 'slug')],
+            'title' => 'required',
+            'category_id' => ['required', Rule::exists('categories', 'id')]
+        ]);
 
 //        $attributes['user_id'] = auth()->user()->id;
         $attributes['user_id'] = auth()->id();
+        $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
 
-        dd($attributes);
-       Post::create($attributes);
-       return redirect('/');
+        Post::create($attributes);
+        return redirect('/');
 
     }
 }
